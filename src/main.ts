@@ -13,7 +13,6 @@ async function bootstrap() {
     credentials: true,
   });
 
-  await app.listen(process.env.PORT ?? 3333);
-  console.log('🚀 API rodando em http://localhost:3333');
+  await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
