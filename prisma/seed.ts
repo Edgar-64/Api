@@ -17,6 +17,9 @@ async function main() {
       name: 'Admin',
       email: 'admin@email.com',
       password,
+      tipo: 'ADMIN',
+      status: 'INATIVO',
+      plano: 'ADMIN',
     },
   });
 }

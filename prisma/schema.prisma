@@ -1,28 +1,112 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-   provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
 }
 
-model User {
-id Int @id @default(autoincrement())
-name String
-email String @unique
-password  String
-createdAt DateTime @default(now())
+enum Tipo {
+  USER
+  ADMIN
 }
 
-model Products {
-  id Int @id @default(autoincrement())
-  name String
-  email String @unique
+enum Status {
+  ATIVO
+  INATIVO
+}
+
+enum Plan {
+  BASICO
+  INTERMEDIARIO
+  AVANCADO
+  ADMIN
+}
+
+enum Throw {
+  ENTRADA
+  SAIDA
+}
+
+enum Process {
+  PROCESSANDO
+  PROCESSADO
+}
+
+enum Cax {
+  ABERTA
+  FECHADA
+}
+
+enum Mov {
+  ENTRADA
+  SAIDA
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
   password  String
+  tipo Tipo @default(USER)
+  status Status @default(INATIVO)
+  plano Plan @default(BASICO)
   createdAt DateTime @default(now())
+}
+
+model Conta {
+  idConta   Int     @id @default(autoincrement())
+  nameConta String
+  conta     Tipo    @default(USER)
+  saldo     Float   
+  ativ      Status  @default(INATIVO)
+}
+
+model Agendado {
+  idAgenda  Int    @id @default(autoincrement())
+  descricao String
+  previsao  Float 
+  periodo   Int   
+  valor     Float 
+}
+
+model Lancamento {
+  idLaunch        Int      @id @default(autoincrement())
+  valor           Float    
+  tipoLaunch      Throw
+  descricaoLaunch String
+  data            DateTime @default(now())
+  statusLaunch    Process  @default(PROCESSANDO)
+}
+
+model Orcamento {
+  idOrc Int @id @default(autoincrement())
+  mes   Int @default(dbgenerated("(extract(month from now()))::int"))
+  limite String
+}
+
+model Plano {
+  idPlan Int @id @default(autoincrement())
+  namePlan String
+  preco Float
+  beneficios String
+}
+
+model Categoria {
+  idCat Int @id @default(autoincrement())
+  nameCat String
+  tipoCat String
+}
+
+model Caixinha {
+  idCaixa Int @id @default(autoincrement())
+  meta String
+  alvo Float
+  caixa Cax
+}
+
+model MovimentoCaixa {
+  idMove Int @id @default(autoincrement())
+  valorMove Float
+  move Mov
 }
