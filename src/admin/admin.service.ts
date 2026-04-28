@@ -7,7 +7,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import bcrypt from 'bcrypt';
 
 @Injectable()
-export class productsService {
+export class AdminService {
   constructor(private prisma: PrismaService) {}
 
   async create(data: { name: string; email: string; password: string }) {
@@ -40,6 +40,18 @@ export class productsService {
     });
   }
 
+  async findById(id: number) {
+    return this.prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        password: true,
+      },
+    });
+  }
+
   async findByEmail(email: string) {
     return this.prisma.user.findUnique({
       where: { email },
@@ -52,16 +64,31 @@ export class productsService {
     });
   }
 
-  async login(data: { email: string; password: string }) {
-    const user = await this.findByEmail(data.email);
+  async delete(id: number) {
+    return this.prisma.user.delete({
+      where: { id: Number(id) },
+    });
+  }
+
+  async update(id: number, body: any) {
+    return await this.prisma.user.update({
+      where: { id: Number(id) },
+      data: body,
+    });
+  }
+
+  async login(data: { id: number; password: string }) {
+    const user = await this.findById(data.id);
 
     if (!user || !user.password) {
+      alert('Inválido');
       throw new UnauthorizedException('Credenciais inválidas');
     }
 
     const isValid = await bcrypt.compare(data.password, user.password);
 
     if (!isValid) {
+      alert('Inválido');
       throw new UnauthorizedException('Credenciais inválidas');
     }
 

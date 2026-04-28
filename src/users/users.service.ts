@@ -30,12 +30,14 @@ export class UsersService {
     });
   }
 
-  async findAll() {
-    return this.prisma.user.findMany({
+  async findById(id: number) {
+    return this.prisma.user.findUnique({
+      where: { id },
       select: {
         id: true,
         name: true,
         email: true,
+        password: true,
       },
     });
   }
@@ -52,16 +54,18 @@ export class UsersService {
     });
   }
 
-  async login(data: { email: string; password: string }) {
-    const user = await this.findByEmail(data.email);
+  async login(data: { id: number; password: string }) {
+    const user = await this.findById(data.id);
 
     if (!user || !user.password) {
+      alert('Inválido');
       throw new UnauthorizedException('Credenciais inválidas');
     }
 
     const isValid = await bcrypt.compare(data.password, user.password);
 
     if (!isValid) {
+      alert('Inválido');
       throw new UnauthorizedException('Credenciais inválidas');
     }
 
