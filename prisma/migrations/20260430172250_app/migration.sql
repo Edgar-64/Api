@@ -24,7 +24,7 @@ CREATE TABLE "User" (
     "password" TEXT NOT NULL,
     "tipo" "Tipo" NOT NULL DEFAULT 'USER',
     "status" "Status" NOT NULL DEFAULT 'ATIVO',
-    "assinante" "Plan" NOT NULL DEFAULT 'BASICO',
+    "planoUser" "Plan" NOT NULL DEFAULT 'BASICO',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
@@ -33,10 +33,8 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Conta" (
     "idConta" SERIAL NOT NULL,
-    "nameConta" TEXT NOT NULL,
-    "conta" "Tipo" NOT NULL DEFAULT 'USER',
     "saldo" DOUBLE PRECISION NOT NULL,
-    "ativ" "Status" NOT NULL DEFAULT 'ATIVO',
+    "userId" INTEGER NOT NULL,
 
     CONSTRAINT "Conta_pkey" PRIMARY KEY ("idConta")
 );
@@ -74,13 +72,13 @@ CREATE TABLE "Orcamento" (
 );
 
 -- CreateTable
-CREATE TABLE "Servico" (
+CREATE TABLE "Service" (
     "idServ" SERIAL NOT NULL,
     "nameServ" TEXT NOT NULL,
     "preco" DOUBLE PRECISION NOT NULL,
     "beneficios" TEXT NOT NULL,
 
-    CONSTRAINT "Servico_pkey" PRIMARY KEY ("idServ")
+    CONSTRAINT "Service_pkey" PRIMARY KEY ("idServ")
 );
 
 -- CreateTable
@@ -113,3 +111,6 @@ CREATE TABLE "MovimentoCaixa" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- AddForeignKey
+ALTER TABLE "Conta" ADD CONSTRAINT "Conta_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -45,36 +45,6 @@ export class UsersService {
     });
   }
 
-  async getConta(idConta: number) {
-    return this.prisma.conta.findUnique({
-      where: { idConta },
-      include: {
-        user: true,
-      },
-    });
-  }
-
-  async conta(data: { userId: number; saldo: number }) {
-    return this.prisma.conta.create({
-      data: {
-        saldo: data.saldo,
-        userId: data.userId,
-      },
-    });
-  }
-
-  async findAll() {
-    return this.prisma.conta.findMany({
-      select: {
-        idConta: true,
-        nameConta: true,
-        conta: true,
-        saldo: true,
-        ativ: true,
-      },
-    });
-  }
-
   async findById(id: number) {
     return this.prisma.user.findUnique({
       where: { id },
@@ -103,14 +73,14 @@ export class UsersService {
     const user = await this.findById(data.id);
 
     if (!user || !user.password) {
-      alert('Inválido');
+      console.log('Inválido');
       throw new UnauthorizedException('Credenciais inválidas');
     }
 
     const isValid = await bcrypt.compare(data.password, user.password);
 
     if (!isValid) {
-      alert('Inválido');
+      console.log('Inválido');
       throw new UnauthorizedException('Credenciais inválidas');
     }
 

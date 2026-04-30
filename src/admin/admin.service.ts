@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  BadRequestException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import bcrypt from 'bcrypt';
 
@@ -79,35 +75,13 @@ export class AdminService {
     });
   }
 
-  async update(id: number, body: any) {
+  async update(
+    id: number,
+    body: { name: string; email: string; password: string },
+  ) {
     return await this.prisma.user.update({
       where: { id: Number(id) },
       data: body,
     });
-  }
-
-  async login(data: { id: number; password: string }) {
-    const user = await this.findById(data.id);
-
-    if (!user || !user.password) {
-      alert('Inválido');
-      throw new UnauthorizedException('Credenciais inválidas');
-    }
-
-    const isValid = await bcrypt.compare(data.password, user.password);
-
-    if (!isValid) {
-      alert('Inválido');
-      throw new UnauthorizedException('Credenciais inválidas');
-    }
-
-    return {
-      message: 'Login realizado com sucesso',
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-      },
-    };
   }
 }

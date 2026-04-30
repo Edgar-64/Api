@@ -28,11 +28,6 @@ export class AdminController {
     return this.AdminService.create(body);
   }
 
-  @Post('signin')
-  login(@Body() body: { id: number; password: string }) {
-    return this.AdminService.login(body);
-  }
-
   @Put(':id')
   update(
     @Param('id') id: number,

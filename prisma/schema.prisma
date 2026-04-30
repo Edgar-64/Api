@@ -51,11 +51,10 @@ model User {
 }
 
 model Conta {
-  idConta   Int      @id @default(autoincrement())
-  saldo     Float
-
-  userId Int
-  user      User @relation(fields: [userId], references: [id])
+  idConta Int   @id @default(autoincrement())
+  saldo   Float
+  userId  Int
+  user    User  @relation(fields: [userId], references: [id])
 }
 
 model Agendado {
@@ -76,16 +75,17 @@ model Lancamento {
 }
 
 model Orcamento {
-  idOrc Int @id @default(autoincrement())
-  mes   Int @default(dbgenerated("(extract(month from now()))::int"))
-  limite String
+  idOrc  Int @id @default(autoincrement())
+  mes    Float
+  limite Float
 }
 
-model Servico {
-  idServ Int @id @default(autoincrement())
-  nameServ String
-  preco Float
+model Service {
+  idServ     Int @id @default(autoincrement())
+  nameServ   String
+  preco      Float
   beneficios String
+  @@map("servico")
 }
 
 model Categoria {

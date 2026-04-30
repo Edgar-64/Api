@@ -36,22 +36,4 @@ export class UsersController {
   login(@Body() body: { id: number; password: string }) {
     return this.usersService.login(body);
   }
-
-  @Get()
-  findAll() {
-    return this.usersService.findAll();
-  }
-
-  @Post('agendar')
-  conta(
-    @Body()
-    body: {
-      nameConta: string;
-      conta: Tipo;
-      saldo: number;
-      ativ: Status;
-    },
-  ) {
-    return this.usersService.conta(body);
-  }
 }
