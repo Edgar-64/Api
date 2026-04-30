@@ -8,6 +8,7 @@ import {
   Param,
 } from '@nestjs/common';
 import { AdminService } from './admin.service';
+import e from 'express';
 
 @Controller('Admin')
 export class AdminController {
@@ -21,6 +22,11 @@ export class AdminController {
   @Get(':id')
   findByid(id: number) {
     return this.AdminService.findById(id);
+  }
+
+  @Get(':email')
+  findByEmail(email: string) {
+    return this.AdminService.findByEmail(email);
   }
 
   @Post('signup')

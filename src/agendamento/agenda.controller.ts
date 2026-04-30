@@ -13,7 +13,7 @@ import { AgendaService } from './agenda.service';
 export class AgendaController {
   constructor(private AgendaService: AgendaService) {}
 
-  @Get()
+  @Get(':email')
   findAll() {
     return this.AgendaService.findAll();
   }

@@ -56,7 +56,7 @@ export class AdminService {
 
   async findByEmail(email: string) {
     return this.prisma.user.findUnique({
-      where: { email },
+      where: { email: String(email) },
       select: {
         id: true,
         name: true,

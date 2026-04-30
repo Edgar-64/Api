@@ -1,4 +1,4 @@
-import { Body, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -7,6 +7,12 @@ export class AgendaService {
 
   async findAll() {
     return this.prisma.agendado.findMany();
+  }
+
+  async findByEmail(email: string) {
+    return this.prisma.agendado.findUnique({
+      
+    });
   }
 
   async create(data: {
