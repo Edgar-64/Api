@@ -5,12 +5,24 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import bcrypt from 'bcrypt';
+import { Plan, Status, Tipo } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: { name: string; email: string; password: string }) {
+  async create({
+    data,
+  }: {
+    data: {
+      name: string;
+      email: string;
+      password: string;
+      tipo: Tipo;
+      status: Status;
+      planoUser: Plan;
+    };
+  }) {
     const userExists = await this.prisma.user.findUnique({
       where: { email: data.email },
     });
@@ -26,6 +38,39 @@ export class UsersService {
         name: data.name,
         email: data.email,
         password: hashedPassword,
+        tipo: data.tipo,
+        status: data.status,
+        planoUser: data.planoUser,
+      },
+    });
+  }
+
+  async getConta(idConta: number) {
+    return this.prisma.conta.findUnique({
+      where: { idConta },
+      include: {
+        user: true,
+      },
+    });
+  }
+
+  async conta(data: { userId: number; saldo: number }) {
+    return this.prisma.conta.create({
+      data: {
+        saldo: data.saldo,
+        userId: data.userId,
+      },
+    });
+  }
+
+  async findAll() {
+    return this.prisma.conta.findMany({
+      select: {
+        idConta: true,
+        nameConta: true,
+        conta: true,
+        saldo: true,
+        ativ: true,
       },
     });
   }

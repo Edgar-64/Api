@@ -38,28 +38,24 @@ enum Cax {
   FECHADA
 }
 
-enum Mov {
-  ENTRADA
-  SAIDA
-}
-
 model User {
   id        Int      @id @default(autoincrement())
   name      String
   email     String   @unique
   password  String
-  tipo Tipo @default(USER)
-  status Status @default(INATIVO)
-  plano Plan @default(BASICO)
+  tipo      Tipo @default(USER)
+  status    Status @default(ATIVO)
+  planoUser Plan @default(BASICO)
   createdAt DateTime @default(now())
+  contas    Conta[]
 }
 
 model Conta {
-  idConta   Int     @id @default(autoincrement())
-  nameConta String
-  conta     Tipo    @default(USER)
-  saldo     Float   
-  ativ      Status  @default(INATIVO)
+  idConta   Int      @id @default(autoincrement())
+  saldo     Float
+
+  userId Int
+  user      User @relation(fields: [userId], references: [id])
 }
 
 model Agendado {
@@ -85,9 +81,9 @@ model Orcamento {
   limite String
 }
 
-model Plano {
-  idPlan Int @id @default(autoincrement())
-  namePlan String
+model Servico {
+  idServ Int @id @default(autoincrement())
+  nameServ String
   preco Float
   beneficios String
 }
@@ -108,5 +104,5 @@ model Caixinha {
 model MovimentoCaixa {
   idMove Int @id @default(autoincrement())
   valorMove Float
-  move Mov
+  move Throw
 }

@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import { Plan, Tipo, Status } from '@prisma/client';
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import * as bcrypt from 'bcrypt';
@@ -17,9 +18,9 @@ async function main() {
       name: 'Admin',
       email: 'admin@email.com',
       password,
-      tipo: 'ADMIN',
-      status: 'INATIVO',
-      plano: 'ADMIN',
+      tipo: Tipo.ADMIN,
+      status: Status.ATIVO,
+      planoUser: Plan.ADMIN,
     },
   });
 }

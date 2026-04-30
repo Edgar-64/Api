@@ -1,6 +1,7 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { Get, Param, ParseIntPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { Plan, Status, Tipo } from '@prisma/client';
 
 @Controller('users')
 export class UsersController {
@@ -17,12 +18,40 @@ export class UsersController {
   }
 
   @Post('signup')
-  create(@Body() body: { name: string; email: string; password: string }) {
-    return this.usersService.create(body);
+  create(
+    @Body()
+    body: {
+      name: string;
+      email: string;
+      password: string;
+      tipo: Tipo;
+      status: Status;
+      planoUser: Plan;
+    },
+  ) {
+    return this.usersService.create({ data: body });
   }
 
   @Post('signin')
   login(@Body() body: { id: number; password: string }) {
     return this.usersService.login(body);
+  }
+
+  @Get()
+  findAll() {
+    return this.usersService.findAll();
+  }
+
+  @Post('agendar')
+  conta(
+    @Body()
+    body: {
+      nameConta: string;
+      conta: Tipo;
+      saldo: number;
+      ativ: Status;
+    },
+  ) {
+    return this.usersService.conta(body);
   }
 }

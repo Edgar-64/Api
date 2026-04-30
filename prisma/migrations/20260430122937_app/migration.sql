@@ -16,9 +16,6 @@ CREATE TYPE "Process" AS ENUM ('PROCESSANDO', 'PROCESSADO');
 -- CreateEnum
 CREATE TYPE "Cax" AS ENUM ('ABERTA', 'FECHADA');
 
--- CreateEnum
-CREATE TYPE "Mov" AS ENUM ('ENTRADA', 'SAIDA');
-
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
@@ -26,8 +23,8 @@ CREATE TABLE "User" (
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "tipo" "Tipo" NOT NULL DEFAULT 'USER',
-    "status" "Status" NOT NULL DEFAULT 'INATIVO',
-    "plano" "Plan" NOT NULL DEFAULT 'BASICO',
+    "status" "Status" NOT NULL DEFAULT 'ATIVO',
+    "assinante" "Plan" NOT NULL DEFAULT 'BASICO',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
@@ -39,7 +36,7 @@ CREATE TABLE "Conta" (
     "nameConta" TEXT NOT NULL,
     "conta" "Tipo" NOT NULL DEFAULT 'USER',
     "saldo" DOUBLE PRECISION NOT NULL,
-    "ativ" "Status" NOT NULL DEFAULT 'INATIVO',
+    "ativ" "Status" NOT NULL DEFAULT 'ATIVO',
 
     CONSTRAINT "Conta_pkey" PRIMARY KEY ("idConta")
 );
@@ -77,13 +74,13 @@ CREATE TABLE "Orcamento" (
 );
 
 -- CreateTable
-CREATE TABLE "Plano" (
-    "idPlan" SERIAL NOT NULL,
-    "namePlan" TEXT NOT NULL,
+CREATE TABLE "Servico" (
+    "idServ" SERIAL NOT NULL,
+    "nameServ" TEXT NOT NULL,
     "preco" DOUBLE PRECISION NOT NULL,
     "beneficios" TEXT NOT NULL,
 
-    CONSTRAINT "Plano_pkey" PRIMARY KEY ("idPlan")
+    CONSTRAINT "Servico_pkey" PRIMARY KEY ("idServ")
 );
 
 -- CreateTable
@@ -109,7 +106,7 @@ CREATE TABLE "Caixinha" (
 CREATE TABLE "MovimentoCaixa" (
     "idMove" SERIAL NOT NULL,
     "valorMove" DOUBLE PRECISION NOT NULL,
-    "move" "Mov" NOT NULL,
+    "move" "Throw" NOT NULL,
 
     CONSTRAINT "MovimentoCaixa_pkey" PRIMARY KEY ("idMove")
 );

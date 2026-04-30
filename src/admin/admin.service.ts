@@ -36,6 +36,9 @@ export class AdminService {
         id: true,
         name: true,
         email: true,
+        tipo: true,
+        status: true,
+        planoUser: true,
       },
     });
   }
@@ -48,6 +51,9 @@ export class AdminService {
         name: true,
         email: true,
         password: true,
+        tipo: true,
+        status: true,
+        planoUser: true,
       },
     });
   }
@@ -60,6 +66,9 @@ export class AdminService {
         name: true,
         email: true,
         password: true,
+        tipo: true,
+        planoUser: true,
+        status: true,
       },
     });
   }
