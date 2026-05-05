@@ -48,11 +48,15 @@ model User {
   planoUser Plan @default(BASICO)
   entradaPrincipal Float 
   createdAt DateTime @default(now())
+  contas Conta[]
+  agendamentos Agendado[]
 }
 
 model Conta {
   idConta Int   @id @default(autoincrement())
   saldo   Float
+  userId Int
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Agendado {
@@ -61,6 +65,8 @@ model Agendado {
   previsao  Float 
   periodo   Int   
   valor     Float
+  userId Int
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Lancamento {

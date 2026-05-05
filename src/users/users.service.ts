@@ -65,6 +65,19 @@ export class UsersService {
         name: true,
         email: true,
         password: true,
+        contas: {
+          select: {
+            saldo: true,
+          },
+        },
+        agendamentos: {
+          select: {
+            descricao: true,
+            previsao: true,
+            periodo: true,
+            valor: true,
+          },
+        },
       },
     });
   }

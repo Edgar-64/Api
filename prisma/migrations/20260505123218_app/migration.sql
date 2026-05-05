@@ -25,6 +25,7 @@ CREATE TABLE "User" (
     "tipo" "Tipo" NOT NULL DEFAULT 'USER',
     "status" "Status" NOT NULL DEFAULT 'ATIVO',
     "planoUser" "Plan" NOT NULL DEFAULT 'BASICO',
+    "entradaPrincipal" DOUBLE PRECISION NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
@@ -34,7 +35,6 @@ CREATE TABLE "User" (
 CREATE TABLE "Conta" (
     "idConta" SERIAL NOT NULL,
     "saldo" DOUBLE PRECISION NOT NULL,
-    "userId" INTEGER NOT NULL,
 
     CONSTRAINT "Conta_pkey" PRIMARY KEY ("idConta")
 );
@@ -65,29 +65,20 @@ CREATE TABLE "Lancamento" (
 -- CreateTable
 CREATE TABLE "Orcamento" (
     "idOrc" SERIAL NOT NULL,
-    "mes" INTEGER NOT NULL DEFAULT (extract(month from now()))::int,
-    "limite" TEXT NOT NULL,
+    "mes" DOUBLE PRECISION NOT NULL,
+    "limite" DOUBLE PRECISION NOT NULL,
 
     CONSTRAINT "Orcamento_pkey" PRIMARY KEY ("idOrc")
 );
 
 -- CreateTable
-CREATE TABLE "Service" (
+CREATE TABLE "servico" (
     "idServ" SERIAL NOT NULL,
     "nameServ" TEXT NOT NULL,
     "preco" DOUBLE PRECISION NOT NULL,
     "beneficios" TEXT NOT NULL,
 
-    CONSTRAINT "Service_pkey" PRIMARY KEY ("idServ")
-);
-
--- CreateTable
-CREATE TABLE "Categoria" (
-    "idCat" SERIAL NOT NULL,
-    "nameCat" TEXT NOT NULL,
-    "tipoCat" TEXT NOT NULL,
-
-    CONSTRAINT "Categoria_pkey" PRIMARY KEY ("idCat")
+    CONSTRAINT "servico_pkey" PRIMARY KEY ("idServ")
 );
 
 -- CreateTable
@@ -96,21 +87,11 @@ CREATE TABLE "Caixinha" (
     "meta" TEXT NOT NULL,
     "alvo" DOUBLE PRECISION NOT NULL,
     "caixa" "Cax" NOT NULL,
+    "valorMove" DOUBLE PRECISION NOT NULL,
+    "move" "Throw" NOT NULL,
 
     CONSTRAINT "Caixinha_pkey" PRIMARY KEY ("idCaixa")
 );
 
--- CreateTable
-CREATE TABLE "MovimentoCaixa" (
-    "idMove" SERIAL NOT NULL,
-    "valorMove" DOUBLE PRECISION NOT NULL,
-    "move" "Throw" NOT NULL,
-
-    CONSTRAINT "MovimentoCaixa_pkey" PRIMARY KEY ("idMove")
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
-
--- AddForeignKey
-ALTER TABLE "Conta" ADD CONSTRAINT "Conta_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
