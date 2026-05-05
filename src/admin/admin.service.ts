@@ -35,6 +35,16 @@ export class AdminService {
         tipo: true,
         status: true,
         planoUser: true,
+        contas: {
+          select: {
+            saldo: true,
+          },
+        },
+        entradas: {
+          select: {
+            valorInicial: true,
+          },
+        },
       },
     });
   }
@@ -50,6 +60,16 @@ export class AdminService {
         tipo: true,
         status: true,
         planoUser: true,
+        contas: {
+          select: {
+            saldo: true,
+          },
+        },
+        entradas: {
+          select: {
+            valorInicial: true,
+          },
+        },
       },
     });
   }
@@ -65,6 +85,16 @@ export class AdminService {
         tipo: true,
         planoUser: true,
         status: true,
+        contas: {
+          select: {
+            saldo: true,
+          },
+        },
+        entradas: {
+          select: {
+            valorInicial: true,
+          },
+        },
       },
     });
   }

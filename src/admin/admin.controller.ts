@@ -18,12 +18,12 @@ export class AdminController {
     return this.AdminService.findAll();
   }
 
-  @Get(':id')
+  @Get('id/:id')
   findByid(id: number) {
     return this.AdminService.findById(id);
   }
 
-  @Get(':email')
+  @Get('email/:email')
   findByEmail(email: string) {
     return this.AdminService.findByEmail(email);
   }
