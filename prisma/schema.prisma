@@ -46,20 +46,13 @@ model User {
   tipo      Tipo @default(USER)
   status    Status @default(ATIVO)
   planoUser Plan @default(BASICO)
+  entradaPrincipal Float 
   createdAt DateTime @default(now())
-  contas    Conta[]
-  agendamentos Agendado[]
-  pagamentos Lancamento[]
-  orc Orcamento[]
-  servi Service[]
-  caixa Caixinha[]  
 }
 
 model Conta {
   idConta Int   @id @default(autoincrement())
   saldo   Float
-  userEmail  Int
-  user    User  @relation(fields: [userEmail], references: [email])
 }
 
 model Agendado {
@@ -68,8 +61,6 @@ model Agendado {
   previsao  Float 
   periodo   Int   
   valor     Float
-  userEmail  Int
-  user    User  @relation(fields: [userEmail], references: [email])
 }
 
 model Lancamento {
@@ -79,16 +70,12 @@ model Lancamento {
   descricaoLaunch String
   data            DateTime @default(now())
   statusLaunch    Process  @default(PROCESSANDO)
-  userEmail  Int
-  user    User  @relation(fields: [userEmail], references: [email])
 }
 
 model Orcamento {
   idOrc  Int @id @default(autoincrement())
   mes    Float
   limite Float
-  userEmail  Int
-  user    User  @relation(fields: [userEmail], references: [email])
 }
 
 model Service {
@@ -97,8 +84,6 @@ model Service {
   preco      Float
   beneficios String
   @@map("servico")
-  userEmail  Int
-  user    User  @relation(fields: [userEmail], references: [email])
 }
 
 model Caixinha {
@@ -108,6 +93,4 @@ model Caixinha {
   caixa Cax
   valorMove Float
   move Throw
-  userEmail  Int
-  user    User  @relation(fields: [userEmail], references: [email])
 }

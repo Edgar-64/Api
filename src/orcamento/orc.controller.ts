@@ -12,7 +12,4 @@ import { OrcService } from './orc.service';
 @Controller('Orc')
 export class OrcController {
   constructor(private OrcService: OrcService) {}
-
-  @Get()
-  
 }

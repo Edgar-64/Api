@@ -21,6 +21,7 @@ async function main() {
       tipo: Tipo.ADMIN,
       status: Status.ATIVO,
       planoUser: Plan.ADMIN,
+      entradaPrincipal: 0,
     },
   });
 

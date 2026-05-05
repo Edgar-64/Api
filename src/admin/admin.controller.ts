@@ -8,7 +8,6 @@ import {
   Param,
 } from '@nestjs/common';
 import { AdminService } from './admin.service';
-import e from 'express';
 
 @Controller('Admin')
 export class AdminController {
@@ -30,7 +29,15 @@ export class AdminController {
   }
 
   @Post('signup')
-  create(@Body() body: { name: string; email: string; password: string }) {
+  create(
+    @Body()
+    body: {
+      name: string;
+      email: string;
+      password: string;
+      entradaPrincipal: number;
+    },
+  ) {
     return this.AdminService.create(body);
   }
 

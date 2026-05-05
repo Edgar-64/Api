@@ -6,7 +6,12 @@ import bcrypt from 'bcrypt';
 export class AdminService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: { name: string; email: string; password: string }) {
+  async create(data: {
+    name: string;
+    email: string;
+    password: string;
+    entradaPrincipal: number;
+  }) {
     const userExists = await this.prisma.user.findUnique({
       where: { email: data.email },
     });
@@ -22,6 +27,7 @@ export class AdminService {
         name: data.name,
         email: data.email,
         password: hashedPassword,
+        entradaPrincipal: data.entradaPrincipal,
       },
     });
   }

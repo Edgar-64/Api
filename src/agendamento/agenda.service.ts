@@ -9,11 +9,11 @@ export class AgendaService {
     return this.prisma.agendado.findMany();
   }
 
-  async findByEmail(email: string) {
+  /*async findByEmail(email: string) {
     return this.prisma.agendado.findUnique({
       
     });
-  }
+  }*/
 
   async create(data: {
     descricao: string;

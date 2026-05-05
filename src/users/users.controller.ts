@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Put } from '@nestjs/common';
 import { Get, Param, ParseIntPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Plan, Status, Tipo } from '@prisma/client';
@@ -27,6 +27,7 @@ export class UsersController {
       tipo: Tipo;
       status: Status;
       planoUser: Plan;
+      entrada: number;
     },
   ) {
     return this.usersService.create({ data: body });
@@ -35,5 +36,13 @@ export class UsersController {
   @Post('signin')
   login(@Body() body: { id: number; password: string }) {
     return this.usersService.login(body);
+  }
+
+  @Put(':id')
+  alterarSenha(
+    @Param('id') id: number,
+    @Body() body: { name: string; email: string; password: string },
+  ) {
+    return this.usersService.senha(id, body);
   }
 }

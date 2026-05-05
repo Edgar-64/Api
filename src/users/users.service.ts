@@ -21,6 +21,7 @@ export class UsersService {
       tipo: Tipo;
       status: Status;
       planoUser: Plan;
+      entrada: number;
     };
   }) {
     const userExists = await this.prisma.user.findUnique({
@@ -41,7 +42,18 @@ export class UsersService {
         tipo: data.tipo,
         status: data.status,
         planoUser: data.planoUser,
+        entradaPrincipal: data.entrada,
       },
+    });
+  }
+
+  async senha(
+    id: number,
+    body: { name: string; email: string; password: string },
+  ) {
+    return await this.prisma.user.update({
+      where: { id: Number(id) },
+      data: body,
     });
   }
 
