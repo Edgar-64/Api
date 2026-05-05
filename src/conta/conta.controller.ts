@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { contaService } from './conta.service';
-import { CreateContaDto } from '../users/dto/create-conta.dto';
+import { CreateContaDto } from './dto/create-conta.dto';
 
 @Controller('conta')
 export class contaController {

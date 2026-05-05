@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Delete,
-  Body,
-  Param,
-} from '@nestjs/common';
+import { Controller, Get, Put, Delete, Body, Param } from '@nestjs/common';
 import { AgendaService } from './agenda.service';
 
 @Controller('Agenda')
@@ -18,18 +10,10 @@ export class AgendaController {
     return this.AgendaService.findAll();
   }
 
-  @Post('agendar')
-  create(
-    @Body()
-    body: {
-      descricao: string;
-      previsao: number;
-      periodo: number;
-      valor: number;
-    },
-  ) {
-    return this.AgendaService.create(body);
-  }
+  /*@Post('agendar')
+  async criar(@Body() createDataDto: CreateDataDto) {
+    return this.AgendaService.criarData(createDataDto);
+  }*/
 
   @Put(':id')
   alterar(

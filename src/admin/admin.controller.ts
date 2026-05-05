@@ -35,7 +35,6 @@ export class AdminController {
       name: string;
       email: string;
       password: string;
-      entradaPrincipal: number;
     },
   ) {
     return this.AdminService.create(body);

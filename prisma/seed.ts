@@ -44,15 +44,16 @@ async function main() {
     });
   }
 
-  await prisma.user.create({
-    data: {
+  await prisma.user.upsert({
+    where: { email: 'admin@email.com' },
+    update: {},
+    create: {
       name: 'Admin',
       email: 'admin@email.com',
       password,
       tipo: Tipo.ADMIN,
       status: Status.ATIVO,
       planoUser: Plan.ADMIN,
-      entradaPrincipal: 0,
     },
   });
 

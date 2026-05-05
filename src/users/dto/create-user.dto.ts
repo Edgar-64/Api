@@ -1,26 +1,24 @@
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-  MinLength,
-} from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { Plan, Status, Tipo } from '@prisma/client';
 
 export class CreateUserDto {
   @IsString()
-  @IsNotEmpty({ message: 'O nome não pode estar vazio' })
-  name!: string;
+  @IsNotEmpty()
+  name!: string; // O '!' resolve o erro TS2564
 
-  @IsEmail({}, { message: 'E-mail inválido' })
+  @IsEmail()
   email!: string;
 
   @IsString()
-  @MinLength(6, { message: 'A senha deve ter no mínimo 6 caracteres' })
+  @MinLength(6)
   password!: string;
 
-  @IsNumber()
-  entradaPrincipal!: number;
+  @IsEnum(Tipo)
+  tipo!: Tipo;
 
-  // Os campos 'tipo', 'status' e 'planoUser' são opcionais
-  // pois você definiu @default no Prisma.
+  @IsEnum(Status)
+  status!: Status;
+
+  @IsEnum(Plan)
+  planoUser!: Plan;
 }

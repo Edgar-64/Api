@@ -9,6 +9,7 @@ import { PayModule } from './pagamentos/pay.module';
 import { caixaModule } from './caixinha/caixa.module';
 import { servicosModule } from './servicos/servicos.module';
 import { contaModule } from './conta/conta.module';
+import { entradaModule } from './entrada/entrada.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { contaModule } from './conta/conta.module';
     caixaModule,
     servicosModule,
     contaModule,
+    entradaModule,
   ],
 })
 export class AppModule {}

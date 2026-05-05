@@ -21,7 +21,6 @@ export class UsersService {
       tipo: Tipo;
       status: Status;
       planoUser: Plan;
-      entrada: number;
     };
   }) {
     const userExists = await this.prisma.user.findUnique({
@@ -42,7 +41,6 @@ export class UsersService {
         tipo: data.tipo,
         status: data.status,
         planoUser: data.planoUser,
-        entradaPrincipal: data.entrada,
       },
     });
   }
@@ -70,12 +68,9 @@ export class UsersService {
             saldo: true,
           },
         },
-        agendamentos: {
+        entradas: {
           select: {
-            descricao: true,
-            previsao: true,
-            periodo: true,
-            valor: true,
+            valorInicial: true,
           },
         },
       },

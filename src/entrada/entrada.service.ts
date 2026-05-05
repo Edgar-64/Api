@@ -1,29 +1,29 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateContaDto } from './dto/create-conta.dto';
+import { CreateEntradaDto } from './dto/create-entrada.dto';
 
 @Injectable()
-export class contaService {
+export class entradaService {
   constructor(private prisma: PrismaService) {}
 
   async buscar(id: number) {
     if (!id) {
       throw new BadRequestException('ID da conta não fornecido');
     }
-    return this.prisma.conta.findUnique({
-      where: { idConta: Number(id) },
+    return this.prisma.entrada.findUnique({
+      where: { idEntrada: Number(id) },
       select: {
-        idConta: true,
-        saldo: true,
+        idEntrada: true,
+        valorInicial: true,
         user: true,
       },
     });
   }
 
-  async criarConta(dto: CreateContaDto) {
-    return this.prisma.conta.create({
+  async criarEntrada(dto: CreateEntradaDto) {
+    return this.prisma.entrada.create({
       data: {
-        saldo: dto.saldo,
+        valorInicial: dto.valorInicial,
         user: {
           connect: { id: dto.userId },
         },

@@ -11,25 +11,30 @@ export class AgendaService {
 
   /*async findByEmail(email: string) {
     return this.prisma.agendado.findUnique({
-      
-    });
-  }*/
-
-  async create(data: {
-    descricao: string;
-    previsao: number;
-    periodo: number;
-    valor: number;
-  }) {
-    return this.prisma.agendado.create({
-      data: {
-        descricao: data.descricao,
-        previsao: data.previsao,
-        periodo: data.periodo,
-        valor: data.valor,
+      where: { userEmail: String(email) },
+      select: {
+        idAgenda: true,
+        descricao: true,
+        previsao: true,
+        periodo: true,
+        valor: true,
       },
     });
   }
+
+  async criarData(dto: CreateDataDto) {
+    return this.prisma.agendado.create({
+      data: {
+        descricao: dto.descricao,
+        periodo: dto.periodo,
+        previsao: dto.previsao,
+        valor: dto.valor,
+        user: {
+          connect: { id: dto.userId },
+        },
+      },
+    });
+  }*/
 
   async update(
     id: number,
