@@ -55,7 +55,8 @@ model User {
 model Entrada {
   idEntrada    Int @id @default(autoincrement())
   valorInicial Float
-  userId Int @unique
+  tipoConta      Throw
+  userId Int
   user User @relation(fields: [userId], references: [id])
 }
 
@@ -81,7 +82,7 @@ model Lancamento {
   descricaoLaunch String
   data            DateTime @default(now())
   statusLaunch    Process  @default(PROCESSANDO)
-  userId Int @unique
+  userId Int
   user User @relation(fields: [userId], references: [id])
 }
 

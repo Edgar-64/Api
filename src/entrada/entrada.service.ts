@@ -15,6 +15,7 @@ export class entradaService {
       select: {
         idEntrada: true,
         valorInicial: true,
+        tipoConta: true,
         user: true,
       },
     });
@@ -24,6 +25,7 @@ export class entradaService {
     return this.prisma.entrada.create({
       data: {
         valorInicial: dto.valorInicial,
+        tipoConta: dto.tipoConta,
         user: {
           connect: { id: dto.userId },
         },
