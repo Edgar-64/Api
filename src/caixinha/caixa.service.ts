@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Cax, Throw } from '@prisma/client';
+import { CreateCaixinhaDto } from './dto/create-caixinha.dto';
 
 @Injectable()
 export class caixaService {
@@ -16,17 +17,12 @@ export class caixaService {
         caixa: true,
         valorMove: true,
         move: true,
+        user: true,
       },
     });
   }
 
-  async registrar(data: {
-    meta: string;
-    alvo: number;
-    caixa: Cax;
-    valorMove: number;
-    tipo: Throw;
-  }) {
+  async registrar(data: CreateCaixinhaDto) {
     return this.prisma.caixinha.create({
       data: {
         meta: data.meta,

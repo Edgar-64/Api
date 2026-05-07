@@ -1,12 +1,13 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import bcrypt from 'bcrypt';
+import { CreateAdminDto } from './dto/create-admin.dto';
 
 @Injectable()
 export class AdminService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: { name: string; email: string; password: string }) {
+  async create(data: CreateAdminDto) {
     const userExists = await this.prisma.user.findUnique({
       where: { email: data.email },
     });
@@ -22,6 +23,9 @@ export class AdminService {
         name: data.name,
         email: data.email,
         password: hashedPassword,
+        tipo: data.tipo,
+        planoUser: data.planoUser,
+        status: data.status,
       },
     });
   }

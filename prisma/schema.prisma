@@ -43,21 +43,27 @@ model User {
   name      String
   email     String   @unique
   password  String
-  tipo      Tipo @default(USER)
-  status    Status @default(ATIVO)
-  planoUser Plan @default(BASICO)
+  tipo      Tipo 
+  status    Status 
+  planoUser Plan 
   createdAt DateTime @default(now())
   contas Conta[]
   operacoes Lancamento[]
   entradas Entrada[]
+  caixa Caixinha[]
 }
 
 model Entrada {
   idEntrada    Int @id @default(autoincrement())
   valorInicial Float
   tipoConta      Throw
+  criado DateTime @default(now())
+  dataResgate DateTime
+  finalizado Boolean @default(false)
   userId Int
   user User @relation(fields: [userId], references: [id])
+  contaId Int
+  conta Conta @relation(fields: [contaId], references: [idConta])
 }
 
 model Conta {
@@ -65,14 +71,8 @@ model Conta {
   saldo   Float
   userId Int @unique
   user User @relation(fields: [userId], references: [id])
-}
-
-model Agendado {
-  idAgenda  Int    @id @default(autoincrement())
-  descricao String
-  previsao  Float 
-  periodo   Float  
-  valor     Float
+  enter Entrada[]
+  payment Lancamento[]
 }
 
 model Lancamento {
@@ -81,15 +81,11 @@ model Lancamento {
   tipoLaunch      Throw
   descricaoLaunch String
   data            DateTime @default(now())
-  statusLaunch    Process  @default(PROCESSANDO)
+  statusLaunch    Process  
   userId Int
   user User @relation(fields: [userId], references: [id])
-}
-
-model Orcamento {
-  idOrc  Int @id @default(autoincrement())
-  mes    Float
-  limite Float
+  contaId Int
+  conta Conta @relation(fields: [contaId], references: [idConta])
 }
 
 model Service {
@@ -107,4 +103,6 @@ model Caixinha {
   caixa Cax
   valorMove Float
   move Throw
+  userId Int
+  user User @relation(fields: [userId], references: [id])
 }

@@ -12,4 +12,6 @@ export class CreateEntradaDto {
 
   @IsNumber()
   userId!: number;
+  @IsNotEmpty()
+  contaId!: number;
 }

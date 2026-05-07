@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import {
   BadRequestException,
   Injectable,
@@ -23,6 +22,24 @@ export class contaService {
         idConta: true,
         saldo: true,
         user: true,
+        enter: {
+          select: {
+            valorInicial: true,
+            tipoConta: true,
+            criado: true,
+            dataResgate: true,
+            finalizado: true,
+          },
+        },
+        payment: {
+          select: {
+            valor: true,
+            tipoLaunch: true,
+            descricaoLaunch: true,
+            data: true,
+            statusLaunch: true,
+          },
+        },
       },
     });
   }

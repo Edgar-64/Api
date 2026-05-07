@@ -6,5 +6,5 @@ export class CreateContaDto {
   saldo!: number;
 
   @IsNumber()
-  userId!: number; // A FK que conecta com o User
+  userId!: number;
 }

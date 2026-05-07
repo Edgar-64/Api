@@ -6,6 +6,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class UsersService {
@@ -104,10 +105,10 @@ export class UsersService {
     });
   }
 
-  async login(data: { id: number; password: string }) {
-    const user = await this.findById(data.id);
+  async login(data: LoginDto) {
+    const user = await this.findByEmail(data.email);
 
-    if (!user || !user.password) {
+    if (!user?.email || !user.password) {
       console.log('Inválido');
       throw new UnauthorizedException('Credenciais inválidas');
     }

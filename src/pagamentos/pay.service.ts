@@ -20,6 +20,9 @@ export class PayService {
         user: {
           connect: { id: dto.userId },
         },
+        conta: {
+          connect: { idConta: dto.contaId },
+        },
       },
     });
   }

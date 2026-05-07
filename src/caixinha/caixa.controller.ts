@@ -10,6 +10,7 @@ import {
 import { caixaService } from './caixa.service';
 import { Throw } from '@prisma/client';
 import { Cax } from '@prisma/client';
+import { CreateCaixinhaDto } from './dto/create-caixinha.dto';
 
 @Controller('caixa')
 export class caixaController {
@@ -23,13 +24,7 @@ export class caixaController {
   @Post('registrar')
   registrar(
     @Body()
-    body: {
-      meta: string;
-      alvo: number;
-      caixa: Cax;
-      valorMove: number;
-      tipo: Throw;
-    },
+    body: CreateCaixinhaDto
   ) {
     return this.caixaService.registrar(body);
   }

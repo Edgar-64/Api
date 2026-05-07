@@ -8,6 +8,7 @@ import {
   Param,
 } from '@nestjs/common';
 import { AdminService } from './admin.service';
+import { CreateAdminDto } from './dto/create-admin.dto';
 
 @Controller('Admin')
 export class AdminController {
@@ -19,18 +20,14 @@ export class AdminController {
   }
 
   @Get(':id')
-  findByid(id: number) {
+  findByid(@Param('id') id: number) {
     return this.AdminService.findById(id);
   }
 
   @Post('signup')
   create(
     @Body()
-    body: {
-      name: string;
-      email: string;
-      password: string;
-    },
+    body: CreateAdminDto,
   ) {
     return this.AdminService.create(body);
   }

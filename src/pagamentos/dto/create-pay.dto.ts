@@ -28,5 +28,7 @@ export class CreatePayDto {
   valor!: number;
 
   @IsNumber()
-  userId!: number; // A FK que conecta com o User
+  userId!: number;
+  @IsNotEmpty()
+  contaId!: number;
 }
