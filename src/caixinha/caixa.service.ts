@@ -17,7 +17,6 @@ export class caixaService {
         caixa: true,
         valorMove: true,
         move: true,
-        user: true,
       },
     });
   }
@@ -29,7 +28,7 @@ export class caixaService {
         alvo: data.alvo,
         caixa: data.caixa,
         valorMove: data.valorMove,
-        move: data.tipo,
+        move: data.move,
       },
     });
   }

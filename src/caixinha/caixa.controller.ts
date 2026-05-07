@@ -24,7 +24,7 @@ export class caixaController {
   @Post('registrar')
   registrar(
     @Body()
-    body: CreateCaixinhaDto
+    body: CreateCaixinhaDto,
   ) {
     return this.caixaService.registrar(body);
   }
