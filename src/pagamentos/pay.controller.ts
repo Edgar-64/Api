@@ -2,13 +2,13 @@ import {
   Controller,
   Get,
   Post,
-  Put,
   Delete,
   Body,
   Param,
+  Query,
 } from '@nestjs/common';
 import { PayService } from './pay.service';
-import { Process, Throw } from '@prisma/client';
+import { CreatePayDto } from './dto/create-pay.dto';
 
 @Controller('Pay')
 export class PayController {
@@ -20,16 +20,8 @@ export class PayController {
   }
 
   @Post('pagar')
-  pagar(
-    @Body()
-    body: {
-      valor: number;
-      tipoLaunch: Throw;
-      descricaoLaunch: string;
-      statusLaunch: Process;
-    },
-  ) {
-    return this.PayService.create(body);
+  pagar(@Body() createPayDto: CreatePayDto) {
+    return this.PayService.create(createPayDto);
   }
 
   @Delete(':id')
@@ -38,5 +30,10 @@ export class PayController {
     id: number,
   ) {
     return this.PayService.delete(id);
+  }
+
+  @Get(':id/contas')
+  findByEmail(@Param('id') id: number, @Query('filtro') filtro: string) {
+    return this.PayService.findByEmail(id, filtro);
   }
 }

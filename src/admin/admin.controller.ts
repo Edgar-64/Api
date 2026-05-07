@@ -18,14 +18,9 @@ export class AdminController {
     return this.AdminService.findAll();
   }
 
-  @Get('id/:id')
+  @Get(':id')
   findByid(id: number) {
     return this.AdminService.findById(id);
-  }
-
-  @Get('email/:email')
-  findByEmail(email: string) {
-    return this.AdminService.findByEmail(email);
   }
 
   @Post('signup')

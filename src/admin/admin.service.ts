@@ -74,31 +74,6 @@ export class AdminService {
     });
   }
 
-  async findByEmail(email: string) {
-    return this.prisma.user.findUnique({
-      where: { email: String(email) },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        password: true,
-        tipo: true,
-        planoUser: true,
-        status: true,
-        contas: {
-          select: {
-            saldo: true,
-          },
-        },
-        entradas: {
-          select: {
-            valorInicial: true,
-          },
-        },
-      },
-    });
-  }
-
   async delete(id: number) {
     return this.prisma.user.delete({
       where: { id: Number(id) },

@@ -5,42 +5,31 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import bcrypt from 'bcrypt';
-import { Plan, Status, Tipo } from '@prisma/client';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async create({
-    data,
-  }: {
-    data: {
-      name: string;
-      email: string;
-      password: string;
-      tipo: Tipo;
-      status: Status;
-      planoUser: Plan;
-    };
-  }) {
+  async create(dto: CreateUserDto) {
     const userExists = await this.prisma.user.findUnique({
-      where: { email: data.email },
+      where: { email: dto.email },
     });
 
     if (userExists) {
       throw new BadRequestException('Email já cadastrado');
     }
 
-    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const hashedPassword = await bcrypt.hash(dto.password, 10);
 
     return this.prisma.user.create({
       data: {
-        name: data.name,
-        email: data.email,
+        name: dto.name,
+        email: dto.email,
         password: hashedPassword,
-        tipo: data.tipo,
-        status: data.status,
-        planoUser: data.planoUser,
+        tipo: dto.tipo,
+        status: dto.status,
+        planoUser: dto.planoUser,
       },
     });
   }
@@ -57,7 +46,7 @@ export class UsersService {
 
   async findById(id: number) {
     return this.prisma.user.findUnique({
-      where: { id },
+      where: { id: Number(id) },
       select: {
         id: true,
         name: true,
@@ -73,18 +62,44 @@ export class UsersService {
             valorInicial: true,
           },
         },
+        operacoes: {
+          select: {
+            valor: true,
+            tipoLaunch: true,
+            descricaoLaunch: true,
+            statusLaunch: true,
+          },
+        },
       },
     });
   }
 
   async findByEmail(email: string) {
     return this.prisma.user.findUnique({
-      where: { email },
+      where: { email: String(email) },
       select: {
         id: true,
         name: true,
         email: true,
         password: true,
+        contas: {
+          select: {
+            saldo: true,
+          },
+        },
+        entradas: {
+          select: {
+            valorInicial: true,
+          },
+        },
+        operacoes: {
+          select: {
+            valor: true,
+            tipoLaunch: true,
+            descricaoLaunch: true,
+            statusLaunch: true,
+          },
+        },
       },
     });
   }

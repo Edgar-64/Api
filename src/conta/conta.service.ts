@@ -1,6 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateContaDto } from './dto/create-conta.dto';
+import { CreateEntradaDto } from '../entrada/dto/create-entrada.dto';
+import { CreatePayDto } from '../pagamentos/dto/create-pay.dto';
 
 @Injectable()
 export class contaService {
@@ -26,6 +28,28 @@ export class contaService {
         saldo: dto.saldo,
         user: {
           connect: { id: dto.userId },
+        },
+      },
+    });
+  }
+
+  async investir(dto: CreateEntradaDto) {
+    return this.prisma.conta.update({
+      where: { userId: dto.userId },
+      data: {
+        saldo: {
+          decrement: dto.valorInicial,
+        },
+      },
+    });
+  }
+
+  async debitar(dto: CreatePayDto) {
+    return this.prisma.conta.update({
+      where: { userId: dto.userId },
+      data: {
+        saldo: {
+          decrement: dto.valor,
         },
       },
     });

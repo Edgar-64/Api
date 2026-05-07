@@ -46,22 +46,23 @@ model User {
   tipo      Tipo @default(USER)
   status    Status @default(ATIVO)
   planoUser Plan @default(BASICO)
-  entradas Entrada[] 
   createdAt DateTime @default(now())
   contas Conta[]
+  operacoes Lancamento[]
+  entradas Entrada[]
 }
 
 model Entrada {
   idEntrada    Int @id @default(autoincrement())
   valorInicial Float
-  userId Int
+  userId Int @unique
   user User @relation(fields: [userId], references: [id])
 }
 
 model Conta {
   idConta Int   @id @default(autoincrement())
   saldo   Float
-  userId Int
+  userId Int @unique
   user User @relation(fields: [userId], references: [id])
 }
 
@@ -80,6 +81,8 @@ model Lancamento {
   descricaoLaunch String
   data            DateTime @default(now())
   statusLaunch    Process  @default(PROCESSANDO)
+  userId Int @unique
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Orcamento {

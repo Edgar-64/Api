@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Process, Throw } from '@prisma/client';
+import { CreatePayDto } from './dto/create-pay.dto';
 
 @Injectable()
 export class PayService {
@@ -10,18 +10,16 @@ export class PayService {
     return this.prisma.lancamento.findMany();
   }
 
-  async create(data: {
-    valor: number;
-    tipoLaunch: Throw;
-    descricaoLaunch: string;
-    statusLaunch: Process;
-  }) {
+  async create(dto: CreatePayDto) {
     return this.prisma.lancamento.create({
       data: {
-        valor: data.valor,
-        tipoLaunch: data.tipoLaunch,
-        descricaoLaunch: data.descricaoLaunch,
-        statusLaunch: data.statusLaunch,
+        valor: dto.valor,
+        tipoLaunch: dto.tipoLaunch,
+        descricaoLaunch: dto.descricaoLaunch,
+        statusLaunch: dto.statusLaunch,
+        user: {
+          connect: { id: dto.userId },
+        },
       },
     });
   }
@@ -29,6 +27,17 @@ export class PayService {
   async delete(id: number) {
     return this.prisma.lancamento.delete({
       where: { idLaunch: Number(id) },
+    });
+  }
+
+  async findByEmail(id: number, filtro: string) {
+    return this.prisma.lancamento.findMany({
+      where: {
+        userId: Number(id),
+        descricaoLaunch: {
+          contains: filtro,
+        },
+      },
     });
   }
 }
