@@ -10,23 +10,35 @@ import {
 import { caixaService } from './caixa.service';
 import { Throw } from '@prisma/client';
 import { Cax } from '@prisma/client';
+import { contaService } from '../conta/conta.service';
 import { CreateCaixinhaDto } from './dto/create-caixinha.dto';
 
 @Controller('caixa')
 export class caixaController {
-  constructor(private caixaService: caixaService) {}
+  constructor(
+    private caixaService: caixaService,
+    private readonly contaService: contaService,
+  ) {}
 
   @Get(':id')
   buscar(@Param('id') id: number) {
     return this.caixaService.buscar(id);
   }
 
-  @Post('registrar')
-  registrar(
+  @Post('guardar')
+  async guardar(@Body() data: CreateCaixinhaDto) {
+    return (this.contaService.guardar(data), this.caixaService.registrar(data));
+  }
+
+  @Post('recuperar')
+  async recuperar(
     @Body()
-    body: CreateCaixinhaDto,
+    data: CreateCaixinhaDto,
   ) {
-    return this.caixaService.registrar(body);
+    return (
+      this.contaService.recuperar(data),
+      this.caixaService.registrar(data)
+    );
   }
 
   @Put(':id')

@@ -71,6 +71,15 @@ export class UsersService {
             statusLaunch: true,
           },
         },
+        caixa: {
+          select: {
+            meta: true,
+            alvo: true,
+            caixa: true,
+            valorMove: true,
+            move: true,
+          },
+        },
       },
     });
   }
@@ -99,6 +108,15 @@ export class UsersService {
             tipoLaunch: true,
             descricaoLaunch: true,
             statusLaunch: true,
+          },
+        },
+        caixa: {
+          select: {
+            meta: true,
+            alvo: true,
+            caixa: true,
+            valorMove: true,
+            move: true,
           },
         },
       },

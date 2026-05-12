@@ -29,6 +29,7 @@ export class caixaService {
         caixa: data.caixa,
         valorMove: data.valorMove,
         move: data.move,
+        userId: data.userId,
       },
     });
   }

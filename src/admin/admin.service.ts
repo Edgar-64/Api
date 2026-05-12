@@ -49,6 +49,23 @@ export class AdminService {
             valorInicial: true,
           },
         },
+        operacoes: {
+          select: {
+            valor: true,
+            tipoLaunch: true,
+            descricaoLaunch: true,
+            statusLaunch: true,
+          },
+        },
+        caixa: {
+          select: {
+            meta: true,
+            alvo: true,
+            caixa: true,
+            valorMove: true,
+            move: true,
+          },
+        },
       },
     });
   }
@@ -60,7 +77,6 @@ export class AdminService {
         id: true,
         name: true,
         email: true,
-        password: true,
         tipo: true,
         status: true,
         planoUser: true,
@@ -72,6 +88,23 @@ export class AdminService {
         entradas: {
           select: {
             valorInicial: true,
+          },
+        },
+        operacoes: {
+          select: {
+            valor: true,
+            tipoLaunch: true,
+            descricaoLaunch: true,
+            statusLaunch: true,
+          },
+        },
+        caixa: {
+          select: {
+            meta: true,
+            alvo: true,
+            caixa: true,
+            valorMove: true,
+            move: true,
           },
         },
       },

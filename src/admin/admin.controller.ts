@@ -24,7 +24,7 @@ export class AdminController {
     return this.AdminService.findById(id);
   }
 
-  @Post('signup')
+  @Post('cadastrar')
   create(
     @Body()
     body: CreateAdminDto,

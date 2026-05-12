@@ -7,6 +7,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateContaDto } from './dto/create-conta.dto';
 import { CreateEntradaDto } from '../entrada/dto/create-entrada.dto';
 import { CreatePayDto } from '../pagamentos/dto/create-pay.dto';
+import { CreateCaixinhaDto } from '../caixinha/dto/create-caixinha.dto';
 
 @Injectable()
 export class contaService {
@@ -55,10 +56,9 @@ export class contaService {
     });
   }
 
+  //entrada
   async investir(dto: CreateEntradaDto) {
-    // IMPORTANTE: Adicione o 'await' antes do $transaction
     return await this.prisma.$transaction(async (tx) => {
-      // 1. Tenta atualizar. O update retorna a conta atualizada.
       const conta = await tx.conta
         .update({
           where: { userId: dto.userId },
@@ -104,6 +104,7 @@ export class contaService {
     });
   }
 
+  //pagamentos
   async debitar(dto: CreatePayDto) {
     return await this.prisma.$transaction(async (tx) => {
       const conta = await tx.conta
@@ -144,6 +145,54 @@ export class contaService {
 
       if (conta.saldo < 0) {
         throw new BadRequestException('Saldo insuficiente para pagar.');
+      }
+
+      return conta;
+    });
+  }
+
+  //caixa
+  async guardar(dto: CreateCaixinhaDto) {
+    return await this.prisma.$transaction(async (tx) => {
+      const conta = await tx.conta
+        .update({
+          where: { userId: dto.userId },
+          data: {
+            saldo: { decrement: dto.valorMove },
+          },
+        })
+
+        .catch(() => {
+          throw new NotFoundException(
+            'Conta não encontrada para este usuário.',
+          );
+        });
+
+      if (conta.saldo < 0) {
+        throw new BadRequestException('Saldo insuficiente para guardar.');
+      }
+
+      return conta;
+    });
+  }
+
+  async recuperar(dto: CreateCaixinhaDto) {
+    return await this.prisma.$transaction(async (tx) => {
+      const conta = await tx.conta
+        .update({
+          where: { userId: dto.userId },
+          data: {
+            saldo: { increment: dto.valorMove },
+          },
+        })
+        .catch(() => {
+          throw new NotFoundException(
+            'Conta não encontrada para este usuário.',
+          );
+        });
+
+      if (conta.saldo < 0) {
+        throw new BadRequestException('Saldo insuficiente para recuperar.');
       }
 
       return conta;

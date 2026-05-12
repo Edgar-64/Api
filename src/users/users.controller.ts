@@ -26,12 +26,12 @@ export class UsersController {
     return this.usersService.senha(id, body);
   }
 
-  @Post('signup')
+  @Post('cadastro')
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
-  @Post('signin')
+  @Post('login')
   login(@Body() body: LoginDto) {
     return this.usersService.login(body);
   }

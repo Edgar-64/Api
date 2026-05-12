@@ -56,14 +56,6 @@ async function main() {
       planoUser: Plan.ADMIN,
     },
   });
-
-  /*await prisma.servico.create({
-    data: {
-      nameServ: 'Básico',
-      preco: 100,
-      beneficios: 'Acesso limitado ao sistema',
-    },
-  });*/
 }
 
 main()
