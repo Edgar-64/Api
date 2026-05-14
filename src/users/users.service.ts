@@ -28,9 +28,6 @@ export class UsersService {
         name: dto.name,
         email: dto.email,
         password: hashedPassword,
-        tipo: dto.tipo,
-        status: dto.status,
-        planoUser: dto.planoUser,
       },
     });
   }
