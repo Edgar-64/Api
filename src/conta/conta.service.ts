@@ -18,7 +18,7 @@ export class contaService {
       throw new BadRequestException('ID da conta não fornecido');
     }
     return this.prisma.conta.findUnique({
-      where: { idConta: Number(id) },
+      where: { userId: Number(id) },
       select: {
         idConta: true,
         saldo: true,

@@ -33,7 +33,7 @@ export class PayService {
     });
   }
 
-  async findByEmail(id: number, filtro: string) {
+  async filtro(id: number, filtro: string) {
     return this.prisma.lancamento.findMany({
       where: {
         userId: Number(id),

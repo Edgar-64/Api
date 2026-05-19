@@ -33,7 +33,7 @@ export class PayController {
 
   @Get(':id/contas')
   findByEmail(@Param('id') id: number, @Query('filtro') filtro: string) {
-    return this.PayService.findByEmail(id, filtro);
+    return this.PayService.filtro(id, filtro);
   }
 
   @Post('pagar')
