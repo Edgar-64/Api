@@ -32,7 +32,7 @@ export class UsersService {
     });
   }
 
-  async senha(
+  async perfil(
     id: number,
     body: { name: string; email: string; password: string },
   ) {

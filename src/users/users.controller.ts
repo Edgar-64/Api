@@ -19,11 +19,11 @@ export class UsersController {
   }
 
   @Put(':id')
-  alterarSenha(
+  alterarPerfil(
     @Param('id', ParseIntPipe) id: number,
     @Body() body: CreateUserDto,
   ) {
-    return this.usersService.senha(id, body);
+    return this.usersService.perfil(id, body);
   }
 
   @Post('cadastro')

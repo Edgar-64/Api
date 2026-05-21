@@ -100,7 +100,7 @@ model Caixinha {
   idCaixa Int @id @default(autoincrement())
   meta String
   alvo Float
-  caixa Cax
+  caixa Cax @default(ABERTA)
   valorMove Float
   move Throw
   userId Int

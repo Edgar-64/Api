@@ -120,9 +120,9 @@ export class contaService {
           );
         });
 
-      if (conta.saldo < 0) {
+      /*if (conta.saldo < 0) {
         throw new BadRequestException('Saldo insuficiente para pagar.');
-      }
+      }*/
 
       return conta;
     });
