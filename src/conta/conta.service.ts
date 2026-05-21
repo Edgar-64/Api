@@ -7,7 +7,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateContaDto } from './dto/create-conta.dto';
 import { CreateEntradaDto } from '../entrada/dto/create-entrada.dto';
 import { CreatePayDto } from '../pagamentos/dto/create-pay.dto';
-import { CreateCaixinhaDto } from '../caixinha/dto/create-caixinha.dto';
+import { AdicionarDto } from '../caixinha/dto/registrar.dto';
 
 @Injectable()
 export class contaService {
@@ -120,10 +120,6 @@ export class contaService {
           );
         });
 
-      /*if (conta.saldo < 0) {
-        throw new BadRequestException('Saldo insuficiente para pagar.');
-      }*/
-
       return conta;
     });
   }
@@ -143,22 +139,18 @@ export class contaService {
           );
         });
 
-      if (conta.saldo < 0) {
-        throw new BadRequestException('Saldo insuficiente para pagar.');
-      }
-
       return conta;
     });
   }
 
   //caixa
-  async guardar(dto: CreateCaixinhaDto) {
+  async guardar(dto: AdicionarDto) {
     return await this.prisma.$transaction(async (tx) => {
       const conta = await tx.conta
         .update({
           where: { userId: dto.userId },
           data: {
-            saldo: { decrement: dto.valorMove },
+            saldo: { decrement: dto.valor },
           },
         })
 
@@ -176,13 +168,13 @@ export class contaService {
     });
   }
 
-  async recuperar(dto: CreateCaixinhaDto) {
+  async recuperar(dto: AdicionarDto) {
     return await this.prisma.$transaction(async (tx) => {
       const conta = await tx.conta
         .update({
           where: { userId: dto.userId },
           data: {
-            saldo: { increment: dto.valorMove },
+            saldo: { increment: dto.valor },
           },
         })
         .catch(() => {

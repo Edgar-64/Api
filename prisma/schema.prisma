@@ -101,8 +101,7 @@ model Caixinha {
   meta String
   alvo Float
   caixa Cax @default(ABERTA)
-  valorMove Float
-  move Throw
+  valor Float
   userId Int
   user User @relation(fields: [userId], references: [id])
 }

@@ -1,36 +1,57 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Cax, Throw } from '@prisma/client';
 import { CreateCaixinhaDto } from './dto/create-caixinha.dto';
+import { AdicionarDto } from './dto/registrar.dto';
 
 @Injectable()
 export class caixaService {
   constructor(private prisma: PrismaService) {}
 
   async buscar(id: number) {
-    return this.prisma.caixinha.findUnique({
-      where: { idCaixa: Number(id) },
+    return this.prisma.caixinha.findMany({
+      where: { userId: Number(id) },
       select: {
         idCaixa: true,
         meta: true,
         alvo: true,
         caixa: true,
-        valorMove: true,
-        move: true,
+        valor: true,
+        userId: true,
       },
     });
   }
 
   async registrar(data: CreateCaixinhaDto) {
+    const valor = 0;
     return this.prisma.caixinha.create({
       data: {
         meta: data.meta,
         alvo: data.alvo,
         caixa: data.caixa,
-        valorMove: data.valorMove,
-        move: data.move,
+        valor: valor,
         userId: data.userId,
       },
+    });
+  }
+
+  async adicionar(dto: AdicionarDto) {
+    return await this.prisma.$transaction(async (tx) => {
+      const conta = await tx.caixinha
+        .update({
+          where: {
+            idCaixa: dto.idCaixa,
+          },
+          data: {
+            valor: { increment: dto.valor },
+          },
+        })
+        .catch((err) => {
+          console.error(err);
+          throw new NotFoundException('Caixinha não encontrada.');
+        });
+
+      return conta;
     });
   }
 

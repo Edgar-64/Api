@@ -1,12 +1,10 @@
-import { Cax, Throw } from '@prisma/client';
+import { Cax } from '@prisma/client';
 import { IsEnum, IsNumber, IsPositive, IsString } from 'class-validator';
 
 export class CreateCaixinhaDto {
   @IsNumber()
   userId!: number;
 
-  @IsPositive({ message: 'Deve ser um valor positivo' })
-  valorMove!: number;
   @IsPositive({ message: 'Deve ser um valor positivo' })
   alvo!: number;
 
@@ -15,7 +13,4 @@ export class CreateCaixinhaDto {
 
   @IsEnum(Cax)
   caixa!: Cax;
-
-  @IsEnum(Throw)
-  move!: Throw;
 }

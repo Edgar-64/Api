@@ -32,10 +32,14 @@ export class UsersService {
     });
   }
 
-  async perfil(
-    id: number,
-    body: { name: string; email: string; password: string },
-  ) {
+  async perfil(id: number, body: { name: string; email: string }) {
+    return await this.prisma.user.update({
+      where: { id: Number(id) },
+      data: body,
+    });
+  }
+
+  async senha(id: number, body: { password: string }) {
     return await this.prisma.user.update({
       where: { id: Number(id) },
       data: body,
@@ -73,8 +77,6 @@ export class UsersService {
             meta: true,
             alvo: true,
             caixa: true,
-            valorMove: true,
-            move: true,
           },
         },
       },
@@ -112,8 +114,6 @@ export class UsersService {
             meta: true,
             alvo: true,
             caixa: true,
-            valorMove: true,
-            move: true,
           },
         },
       },
