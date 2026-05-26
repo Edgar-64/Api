@@ -39,7 +39,7 @@ export class caixaController {
     // Executa ambas as operações em paralelo e aguarda a conclusão de ambas
     const [contaResultado, caixaResultado] = await Promise.all([
       this.contaService.recuperar(data),
-      this.caixaService.adicionar(data),
+      this.caixaService.remover(data),
     ]);
 
     // Retorna um objeto JSON claro para o Front-end

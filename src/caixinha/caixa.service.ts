@@ -55,6 +55,26 @@ export class caixaService {
     });
   }
 
+  async remover(dto: AdicionarDto) {
+    return await this.prisma.$transaction(async (tx) => {
+      const conta = await tx.caixinha
+        .update({
+          where: {
+            idCaixa: dto.idCaixa,
+          },
+          data: {
+            valor: { decrement: dto.valor },
+          },
+        })
+        .catch((err) => {
+          console.error(err);
+          throw new NotFoundException('Caixinha não encontrada.');
+        });
+
+      return conta;
+    });
+  }
+
   async alterar({
     id,
     body,

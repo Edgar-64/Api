@@ -13,6 +13,11 @@ export class UsersController {
     return this.usersService.findById(id);
   }
 
+  @Get('Ex/:id')
+  findEx(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.findById(id);
+  }
+
   @Get()
   findByEmail(@Query('email') email: string) {
     return this.usersService.findByEmail(email);
@@ -26,7 +31,7 @@ export class UsersController {
     return this.usersService.perfil(id, body);
   }
 
-  @Put(':id')
+  @Put('senha/:id')
   alterarSenha(
     @Param('id', ParseIntPipe) id: number,
     @Body() body: { password: string },
