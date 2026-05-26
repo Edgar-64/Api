@@ -14,25 +14,22 @@ async function main() {
   const password = await bcrypt.hash('123456', 10);
   const planos = [
     {
-      nameServ: 'Plano Bronze',
+      nameServ: 'Plano Básico',
       preco: 29.9,
       beneficios: 'Acesso básico, 1 usuário, Suporte via email',
+      userId: 1,
     },
     {
-      nameServ: 'Plano Prata',
+      nameServ: 'Plano Médio',
       preco: 59.9,
       beneficios: 'Acesso intermediário, 3 usuários, Suporte prioritário',
-    },
-    {
-      nameServ: 'Plano Ouro',
-      preco: 99.9,
-      beneficios: 'Acesso total, 10 usuários, Consultoria mensal',
+      userId: 1,
     },
     {
       nameServ: 'Plano VIP',
-      preco: 199.9,
-      beneficios:
-        'Tudo ilimitado, Gerente de conta exclusivo, Acesso antecipado',
+      preco: 99.9,
+      beneficios: 'Acesso total, 10 usuários, Consultoria mensal',
+      userId: 1,
     },
   ];
 

@@ -51,6 +51,7 @@ model User {
   operacoes Lancamento[]
   entradas Entrada[]
   caixa Caixinha[]
+  planos Service[]
 }
 
 model Entrada {
@@ -94,6 +95,8 @@ model Service {
   preco      Float
   beneficios String
   @@map("servico")
+  userId Int
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Caixinha {
