@@ -31,6 +31,21 @@ export class UsersController {
     return this.usersService.perfil(id, body);
   }
 
+  @Put('admin/:id')
+  alterarPerfilAdmin(
+    @Param('id', ParseIntPipe) id: number,
+    @Body()
+    body: {
+      name: string;
+      email: string;
+      tipo: string;
+      planoUser: string;
+      status: string;
+    },
+  ) {
+    return this.usersService.perfilAdmin(id, body);
+  }
+
   @Put('senha/:id')
   alterarSenha(
     @Param('id', ParseIntPipe) id: number,

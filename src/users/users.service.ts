@@ -39,6 +39,13 @@ export class UsersService {
     });
   }
 
+  async perfilAdmin(id: number, body: { name: string; email: string }) {
+    return await this.prisma.user.update({
+      where: { id: Number(id) },
+      data: body,
+    });
+  }
+
   async senha(id: number, body: { password: string }) {
     return await this.prisma.user.update({
       where: { id: Number(id) },
@@ -90,6 +97,7 @@ export class UsersService {
         id: true,
         name: true,
         email: true,
+        tipo: true,
         password: true,
         contas: {
           select: {
@@ -141,6 +149,7 @@ export class UsersService {
         id: user.id,
         name: user.name,
         email: user.email,
+        tipo: user.tipo,
       },
     };
   }
