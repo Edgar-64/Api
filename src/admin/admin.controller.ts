@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
-//
+
 @Controller('Admin')
 export class AdminController {
   constructor(private AdminService: AdminService) {}
@@ -18,7 +18,7 @@ export class AdminController {
   findAll() {
     return this.AdminService.findAll();
   }
-//
+
   @Get(':id')
   findByid(@Param('id') id: number) {
     return this.AdminService.findById(id);

@@ -21,7 +21,7 @@ async function bootstrap() {
   // 2. Configuração unificada e corrigida do CORS
   app.enableCors({
     origin: [
-      'http://localhost:8081', // 👈 Adicionado (origem exata do erro do seu log)
+      'http://localhost:8081', // Adicionado (origem exata do erro do seu log)
       'http://172.17.240.1:8081', // Mobile via IP físico
       'http://localhost:3000', // Frontend local
       'http://172.17.240.1:3000', // Frontend via IP físico

@@ -36,7 +36,7 @@ async function main() {
       nameServ: 'Plano Básico',
       preco: 29.9,
       beneficios: 'Acesso básico, 1 usuário, Suporte via email',
-      userId: adminUser.id, // 👈 Vincula dinamicamente ao ID do Admin criado acima
+      userId: adminUser.id, // Vincula dinamicamente ao ID do Admin criado acima
     },
     {
       nameServ: 'Plano Médio',
@@ -59,7 +59,7 @@ async function main() {
   // 2. Loop correto usando o .create()
   for (const plano of planos) {
     await prisma.service.create({
-      data: plano, // 👈 O .create() só aceita a propriedade 'data'
+      data: plano, // O .create() só aceita a propriedade 'data'
     });
   }
 }

@@ -10,7 +10,7 @@ import { Plan, Status, Tipo } from '@prisma/client';
 export class CreateAdminDto {
   @IsString()
   @IsNotEmpty()
-  name!: string; // O '!' resolve o erro TS2564
+  name!: string;
 
   @IsEmail()
   email!: string;
