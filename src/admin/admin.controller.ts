@@ -18,7 +18,7 @@ export class AdminController {
   findAll() {
     return this.AdminService.findAll();
   }
-
+//
   @Get(':id')
   findByid(@Param('id') id: number) {
     return this.AdminService.findById(id);
